@@ -10,17 +10,7 @@
 
 <body>
 
-    <div class="navbar">
-        <span class="menu-btn" onclick="abrirMenu()">☰</span>
-        <H1>Olá, Usuario!</H1>
-    </div>
-    <div id="menuLateral" class="menu-lateral">
-        <span class="fechar" onclick="fecharMenu()">×</span>
-        <a href="index.html">Página inicial</a>
-        <a href="credenciais.html">Credencial</a>
-        <a href="#">Exames</a>
-        <a href="#">Piscinas</a>
-    </div>
+    <div id="navbar"></div>
 
     <div class="grid">
         <div class="card">
@@ -99,6 +89,26 @@
         function fecharMenu() {
             document.getElementById("menuLateral").style.width = "0";
         }
+
+        // carregar navbar
+        fetch("pages/navbar.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("navbar").innerHTML = data;
+            });
+
+        // carregar footer
+       
+
+        // menu lateral
+        function abrirMenu() {
+            document.getElementById("menuLateral").style.width = "250px";
+        }
+
+        function fecharMenu() {
+            document.getElementById("menuLateral").style.width = "0";
+        }
+
     </script>
 
 </body>
