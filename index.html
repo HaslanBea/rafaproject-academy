@@ -75,11 +75,7 @@
         </div>
     </div>
 
-    <footer style="padding: 30px; background-color: #f5d300;">
-
-        © 2026 Sesc Academy Project • make by Haslan
-
-    </footer>
+    <div id="footer"></div>
 
     <script>
         function abrirMenu() {
@@ -98,7 +94,11 @@
             });
 
         // carregar footer
-       
+        fetch("pages/footer.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("footer").innerHTML = data;
+            });
 
         // menu lateral
         function abrirMenu() {
