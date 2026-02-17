@@ -7,11 +7,49 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div id="navbar"></div>
+
     <h1>Canais de atendimento</h1>
 
     <p>Aqui ficam os canais de atendimento...</p>
 
     <a href="index.html">Voltar</a>
     
+    <div id="footer"></div>
+    
+    <script>
+        function abrirMenu() {
+            document.getElementById("menuLateral").style.width = "250px";
+        }
+
+        function fecharMenu() {
+            document.getElementById("menuLateral").style.width = "0";
+        }
+
+        // carregar navbar
+        fetch("pages/navbar.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("navbar").innerHTML = data;
+            });
+
+        // carregar footer
+        fetch("pages/footer.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("footer").innerHTML = data;
+            });
+
+        // menu lateral
+        function abrirMenu() {
+            document.getElementById("menuLateral").style.width = "250px";
+        }
+
+        function fecharMenu() {
+            document.getElementById("menuLateral").style.width = "0";
+        }
+
+    </script>
+
 </body>
 </html>
