@@ -1,17 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Document</title>
+    <title>Sesc Academy</title>
 </head>
 
 <body>
-    <H1>Olá, Aluno!</H1>
+    <H1>Olá, Usuario!</H1>
 
     <div class="grid">
+        <div class="card">
+            <img src="img/credencial.png" alt="Pedidos">
+            <p>credencial</p>
+        </div>
         <div class="card">
             <img src="img/icon-pay.png" alt="Odontologia">
             <p>Pagementos</p>
@@ -69,6 +73,23 @@
             <p>Odontologia</p>
         </div>
     </div>
+
+    <footer style="padding: 30px; background-color: #f5d300;">
+
+        © 2026 Sesc Academy Project • make by Haslan
+
+    </footer>
+
+    <script>
+        function abrirMenu() {
+            document.getElementById("menuLateral").style.width = "250px";
+        }
+
+        function fecharMenu() {
+            document.getElementById("menuLateral").style.width = "0";
+        }
+    </script>
+
 
 </body>
 
