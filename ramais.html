@@ -1,22 +1,121 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>canais de atendimento</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
     <div id="navbar"></div>
 
-    <h1>Canais de atendimento</h1>
+    <h1
+        style="text-align: center; margin-top: 0px; padding: 30px; background-image: url('img/backgroud-credi-hero.png');">
+        Canais de Atendimentos</h1>
 
-    <p>Aqui ficam os canais de atendimento...</p>
+    <section class="container my-5 text-center" style="max-width: 800px;">
+        <h2 class="mb-4" style="color:#ff5b1a;">Como podemos te ajudar?</h2>
 
-    <a href="index.html">Voltar</a>
-    
+        <p class="mb-4">
+            Os canais de atendimento são os meios oficiais para você tirar dúvidas,
+            resolver solicitações, acompanhar pedidos e receber orientações.
+            Seja por telefone, atendimento digital ou presencial, cada canal foi
+            pensado para facilitar seu acesso às informações e serviços.
+        </p>
+
+        <p class="mb-4">
+            Escolha o canal mais conveniente para você e entre em contato.
+            Nosso objetivo é oferecer praticidade, agilidade e suporte sempre que precisar.
+        </p>
+
+        <a href="#listaCanais" class="btn px-4" style="background-color:#ff5b1a; color:white; border-radius:8px;">
+            Ver canais disponíveis
+        </a>
+    </section>
+
+    <section class="container my-5 text-center" style="max-width: 800px;">
+        <h2 class="mb-4" style="color:#ff5b1a;">Fique por dentro das novidades</h2>
+
+        <p class="mb-4">
+            Acompanhar nossas redes sociais é a melhor forma de não perder
+            eventos, programações, avisos importantes e oportunidades especiais.
+            Publicamos conteúdos atualizados para manter você sempre informado.
+        </p>
+
+        <p>
+            Siga nossos perfis oficiais e faça parte da comunidade.
+            Informação rápida, prática e sempre ao seu alcance.
+        </p>
+
+        <a href="#listaCanais" class="btn px-4" style="background-color:#ff5b1a; color:white; border-radius:8px;">
+            Ver redes disponíveis
+        </a>
+    </section>
+
+    <img src="img/low-poly-grid-haikei.png" alt="Doc. Credenciais"
+        style="width: 100%; height: auto; display: block; margin-top: 50px;">
+
+    <section id="listaCanais" class="container my-5" style="max-width: 500px;">
+
+        <a href="#" class="canal-btn">
+            <span>WhatsApp</span>
+            <i class="bi bi-whatsapp"></i>
+        </a>
+
+        <a href="#" class="canal-btn">
+            <span>Instagram</span>
+            <i class="bi bi-instagram"></i>
+        </a>
+
+        <a href="#" class="canal-btn">
+            <span>Site Oficial</span>
+            <i class="bi bi-link-45deg"></i>
+        </a>
+
+        <a href="#" class="canal-btn">
+            <span>E-mail Oficial</span>
+            <i class="bi bi-envelope"></i>
+        </a>
+
+        <a href="#" class="canal-btn">
+            <span>Página Oficial</span>
+            <i class="bi bi-facebook"></i>
+        </a>
+
+        <a href="#" class="canal-btn">
+            <span>Comunidades</span>
+            <i class="bi bi-people"></i>
+        </a>
+
+    </section>
+
+    <section class="container my-5 text-center" style="max-width: 800px;">
+        <hr class="mb-4">
+
+        <h4 style="color:#ff5b1a;" class="mb-3">Estamos à disposição</h4>
+
+        <p>
+            Agradecemos por acompanhar nossas informações e conhecer nossos canais de atendimento.
+            Nosso compromisso é oferecer suporte com atenção, clareza e respeito.
+        </p>
+
+        <p>
+            Sempre que precisar, conte com a nossa equipe.
+            Estamos prontos para ajudar da melhor forma possível.
+        </p>
+    </section>
+
+
+
+    <div class="text-center mb-4" style="margin-top: 50px;">
+        <a href="index.html" class="btn btn-outline-dark px-4">Voltar</a>
+    </div>
+
     <div id="footer"></div>
-    
+
     <script>
         function abrirMenu() {
             document.getElementById("menuLateral").style.width = "250px";
@@ -52,4 +151,5 @@
     </script>
 
 </body>
+
 </html>
