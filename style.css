@@ -166,3 +166,15 @@ footer {
 .accordion-item {
   border: none;
 }
+
+.btn-credencial {
+  background-color: #ff5b1a;
+  color: white;
+  border: none;
+  transition: 0.3s;
+}
+
+.btn-credencial:hover {
+  background-color: #e04e15;
+  transform: scale(1.03);
+}

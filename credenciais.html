@@ -9,11 +9,14 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
+<svg xmlns="http://www.w3.org/2000/svg" class="d-none"></svg>
+
 <div id="navbar"></div>
 
 <h1 style="text-align: center; margin-top: 40px; padding: 30px;">Credenciais</h1>
 
-<p style="text-align: center; padding: 20px; margin: 50px;border-radius: 15px; background-color: #ff5b1a35;">Tudo oque voce precisa saber sobre sua credencial, ou carteirinha.</p>
+<p style="text-align: center; padding: 20px; margin: 50px;border-radius: 15px; background-color: #ff5b1a35;">Tudo oque
+  voce precisa saber sobre sua credencial, ou carteirinha.</p>
 
 <div class="accordion" id="accordionExample">
   <div class="accordion-item">
@@ -25,7 +28,8 @@
     </h2>
     <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
       <div class="accordion-body">
-        Por aqui chamamos de <strong>Credencial Plena</strong>, porque é com ela que você se habilita a aproveitar o Sesc plenamente: serviços exclusivos, atendimento prioritário, descontos e muitos outros benefícios. 
+        Por aqui chamamos de <strong>Credencial Plena</strong>, porque é com ela que você se habilita a aproveitar o
+        Sesc plenamente: serviços exclusivos, atendimento prioritário, descontos e muitos outros benefícios. 
       </div>
     </div>
   </div>
@@ -38,7 +42,11 @@
     </h2>
     <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
       <div class="accordion-body">
-        Todas as pessoas que têm vínculo empregatício com empresas privadas do comércio de bens, serviços e turismo podem se credenciar no Sesc. Empregado (em atividade ou em licença) com registro em carteira de trabalho, temporário, jovem aprendiz, aposentado, desempregado (em até 24 meses nessa condição) e estagiário das mais diversas empresas – como lojas, padarias, farmácias, hospitais, laboratórios, escolas particulares, condomínios, empresas de teleatendimento e muitas outras. 
+        Todas as pessoas que têm vínculo empregatício com empresas privadas do comércio de bens, serviços e turismo
+        podem se credenciar no Sesc. Empregado (em atividade ou em licença) com registro em carteira de trabalho,
+        temporário, jovem aprendiz, aposentado, desempregado (em até 24 meses nessa condição) e estagiário das mais
+        diversas empresas – como lojas, padarias, farmácias, hospitais, laboratórios, escolas particulares, condomínios,
+        empresas de teleatendimento e muitas outras. 
       </div>
     </div>
   </div>
@@ -51,11 +59,14 @@
     </h2>
     <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
       <div class="accordion-body">
-        Digite o CNPJ do estabelecimento que consta no seu contrato de trabalho, disponível no app Carteira de Trabalho Digital. Se for estagiário, digite o CNPJ da empresa concedente, disponível no Termo de Compromisso de Estágio.
+        Digite o CNPJ do estabelecimento que consta no seu contrato de trabalho, disponível no app Carteira de Trabalho
+        Digital. Se for estagiário, digite o CNPJ da empresa concedente, disponível no Termo de Compromisso de Estágio.
       </div>
     </div>
   </div>
 </div>
+
+<div id="areaForms"></div>
 
 <div class="text-center mb-4" style="margin-top: 50px;">
   <a href="index.html" class="btn btn-outline-dark px-4">Voltar</a>
@@ -89,6 +100,50 @@
     .then(data => {
       document.getElementById("footer").innerHTML = data;
     });
+
+  // carregar forms
+  fetch("pages/forms.html")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("areaForms").innerHTML = data;
+
+      const temDependente = document.getElementById("temDependente");
+      const areaDependentes = document.getElementById("areaDependentes");
+      const form = document.querySelector("#areaForms form");
+      const mensagemSucesso = document.getElementById("mensagemSucesso");
+
+      if (temDependente && areaDependentes) {
+        temDependente.addEventListener("change", function () {
+          areaDependentes.style.display = this.checked ? "block" : "none";
+        });
+      }
+
+      if (form) {
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          mensagemSucesso.innerHTML = `
+          <div class="alert alert-success d-flex align-items-center fade show" role="alert">
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24">
+              <use xlink:href="#check-circle-fill"/>
+            </svg>
+            <div>
+              <strong>Enviado com sucesso!</strong>
+              Sua solicitação foi recebida e será analisada.
+            </div>
+          </div>
+        `;
+
+          form.reset();
+
+          setTimeout(() => {
+            mensagemSucesso.innerHTML = "";
+          }, 5000);
+        });
+      }
+    });
+
+
 
   // menu lateral
   function abrirMenu() {
