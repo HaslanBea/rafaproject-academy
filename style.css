@@ -81,7 +81,9 @@ body {
     overflow-x: hidden;
     transition: 0.3s;
     padding-top: 60px;
+    z-index: 9999; /* <-- AQUI ESTÁ A MAGIA */
 }
+
 
 .menu-lateral a {
     display: block;
