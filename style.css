@@ -149,3 +149,20 @@ footer {
     text-align: center;
     padding: 10px;
 }
+
+.accordion-button {
+  background-color: #ff5b1a35 !important;
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: #ff5b1a35 !important;
+  box-shadow: none;
+}
+
+.accordion-body {
+  background-color: #ff5b1a20;
+}
+
+.accordion-item {
+  border: none;
+}
