@@ -29,6 +29,13 @@
 
 <img src="img/low-poly-grid-haikei.png" alt="Doc. Credenciais"
   style="width: 100%; height: auto; display: block; margin-top: 50px;">
+  <p style="margin: 20px;"></p>
+
+  <h1 style="color: #ff5b1a; text-align: center;">Pre-Cadastro e Cadastro </h1>
+
+  <p style="margin: 25px;">O <strong>Cadastro online permite</strong> realizar o cadastro completo na plataforma. O <strong>pré-credenciamento</strong> é uma etapa anterior, onde você envia seus documentos e recebe um número de protocolo. Leve-o à unidade para validar os documentos e finalizar o cadastro rapidamente. Após o pré-credenciamento, você receberá um número de protocolo para apresentar na unidade em até 7 dias.</p>
+
+  <p style="margin: 20px;"></p>
 
 <div class="text-center my-4">
   <button class="btn" data-bs-toggle="modal" data-bs-target="#modalCredencial" data-tipo="pre"
@@ -36,7 +43,7 @@
     Fazer Pré-Cadastro
   </button>
 
-  <button class="btn" data-bs-toggle="modal" data-bs-target="#modalCredencial" data-tipo="online"
+  <button class="btn" data-bs-toggle="0" data-bs-target="#modalCredencial" data-tipo="online"
     style="background-color: #ff5b1a; color: white; border-radius: 8px;margin-top: 20px;">
     Credencial Online
   </button>
@@ -108,40 +115,41 @@
     }
 
     // =========================
-    // MODAL CREDENCIAL
+    // FUNÇÃO GERAR PROTOCOLO
+    // =========================
+    function gerarProtocolo() {
+      const numero = Math.floor(100000 + Math.random() * 900000);
+      return `PC-${numero}`;
+    }
+
+    // =========================
+    // MODAL CREDENCIAL (SOMENTE PRÉ)
     // =========================
     const modal = document.getElementById("modalCredencial");
 
-    modal.addEventListener("show.bs.modal", function (event) {
+    if (modal) {
+      modal.addEventListener("show.bs.modal", function () {
 
-      const button = event.relatedTarget;
-      const tipo = button.getAttribute("data-tipo");
+        fetch("pages/forms.html")
+          .then(res => res.text())
+          .then(data => {
 
-      fetch("pages/forms.html")
-        .then(res => res.text())
-        .then(data => {
+            document.getElementById("modalFormsContent").innerHTML = data;
 
-          document.getElementById("modalFormsContent").innerHTML = data;
+            const titulo = modal.querySelector(".modal-title");
+            const areaPre = document.getElementById("areaPreCadastro");
+            const areaOnline = document.getElementById("areaOnline");
 
-          const titulo = modal.querySelector(".modal-title");
-          const areaPre = document.getElementById("areaPreCadastro");
-          const areaOnline = document.getElementById("areaOnline");
+            // Sempre abre como Pré-Cadastro
+            if (titulo) titulo.textContent = "Pré-Cadastro";
+            if (areaPre) areaPre.style.display = "block";
+            if (areaOnline) areaOnline.style.display = "none";
 
-          if (tipo === "pre") {
-            titulo.textContent = "Pré-Cadastro";
-            areaPre.style.display = "block";
-            areaOnline.style.display = "none";
-          }
-
-          if (tipo === "online") {
-            titulo.textContent = "Credencial Online";
-            areaPre.style.display = "none";
-            areaOnline.style.display = "block";
-          }
-
-          configurarEnvio();
-        });
-    });
+            configurarEnvio();
+            configurarPerfil();
+          });
+      });
+    }
 
     // =========================
     // CONFIGURAR ENVIO
@@ -166,10 +174,13 @@
       form.addEventListener("submit", function (e) {
         e.preventDefault();
 
+        const protocolo = gerarProtocolo();
+
         mensagem.innerHTML = `
         <div class="alert alert-success">
-          <strong>Enviado com sucesso!</strong>
-          Sua solicitação foi recebida.
+          <strong>Enviado com sucesso!</strong><br>
+          Sua solicitação foi recebida.<br>
+          Número de protocolo: <strong>${protocolo}</strong>
         </div>
       `;
 
@@ -178,6 +189,80 @@
         setTimeout(() => {
           mensagem.innerHTML = "";
         }, 5000);
+      });
+    }
+
+    // =========================
+    // CONFIGURAR PERFIL (LISTA DOCUMENTOS)
+    // =========================
+    function configurarPerfil() {
+
+      const tipoPerfil = document.getElementById("tipoPerfil");
+      const listaDocumentos = document.getElementById("listaDocumentos");
+
+      if (!tipoPerfil) return;
+
+      tipoPerfil.addEventListener("change", function () {
+
+        const documentos = {
+          empregado: `
+            <ul>
+              <li>Documento de identificação</li>
+              <li>CPF</li>
+              <li>Foto de rosto recente</li>
+              <li>Carteira de trabalho digital</li>
+              <li>Último comprovante de remuneração</li>
+            </ul>
+          `,
+          suspenso: `
+            <ul>
+              <li>Documento de identificação</li>
+              <li>CPF</li>
+              <li>Foto de rosto recente</li>
+              <li>Carteira de trabalho digital</li>
+              <li>Último comprovante de remuneração</li>
+              <li>Termo de suspensão do contrato</li>
+            </ul>
+          `,
+          desempregado: `
+            <ul>
+              <li>Documento de identificação</li>
+              <li>CPF</li>
+              <li>Foto de rosto recente</li>
+              <li>Carteira de trabalho digital</li>
+              <li>Validade da credencial: 24 meses após rescisão</li>
+            </ul>
+          `,
+          estagiario: `
+            <ul>
+              <li>Documento de identificação</li>
+              <li>CPF</li>
+              <li>Foto de rosto recente</li>
+              <li>Declaração de matrícula</li>
+              <li>Termo de compromisso de estágio</li>
+            </ul>
+          `,
+          aposentado: `
+            <ul>
+              <li>Documento de identificação</li>
+              <li>CPF</li>
+              <li>Foto de rosto recente</li>
+              <li>CNIS</li>
+              <li>Extrato do benefício</li>
+            </ul>
+          `,
+          falecido: `
+            <ul>
+              <li>Certidão de óbito</li>
+              <li>Documentação do trabalhador falecido</li>
+              <li>Comprovação de parentesco</li>
+            </ul>
+          `
+        };
+
+        if (listaDocumentos) {
+          listaDocumentos.innerHTML = documentos[this.value] || "";
+        }
       });
     }
 
