@@ -30,12 +30,38 @@
 <img src="img/low-poly-grid-haikei.png" alt="Doc. Credenciais"
   style="width: 100%; height: auto; display: block; margin-top: 50px;">
 
+<div class="text-center my-4">
+  <button class="btn" data-bs-toggle="modal" data-bs-target="#modalCredencial" data-tipo="pre"
+    style="background-color: #ff5b1a; color: white; border-radius: 8px; margin-top: 20px;">
+    Fazer Pré-Cadastro
+  </button>
+
+  <button class="btn" data-bs-toggle="modal" data-bs-target="#modalCredencial" data-tipo="online"
+    style="background-color: #ff5b1a; color: white; border-radius: 8px;margin-top: 20px;">
+    Credencial Online
+  </button>
+</div>
+
+<div class="modal fade" id="modalCredencial" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title">Título</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body" id="modalFormsContent">
+        <!-- forms.html será injetado aqui -->
+      </div>
+
+    </div>
+  </div>
+</div>
 
 <div id="areaForms"></div>
 
 <div id="areaFaq"></div>
-
-
 
 <div class="text-center mb-4" style="margin-top: 50px;">
   <a href="index.html" class="btn btn-outline-dark px-4">Voltar</a>
@@ -49,95 +75,113 @@
 </script>
 
 <script>
+  document.addEventListener("DOMContentLoaded", function () {
 
-// carregar faq
-  fetch("pages/faq-credenciais.html")
-  .then(res => res.text())
-  .then(data => {
-    document.getElementById("areaFaq").innerHTML = data;
-  });
+    // =========================
+    // FUNÇÃO GENÉRICA DE FETCH
+    // =========================
+    function carregarHTML(caminho, destinoId) {
+      fetch(caminho)
+        .then(res => res.text())
+        .then(data => {
+          document.getElementById(destinoId).innerHTML = data;
+        });
+    }
 
-// carregar accordion
-  fetch("pages/accordion-credenciais.html")
-  .then(res => res.text())
-  .then(data => {
-    document.getElementById("areaAccordion").innerHTML = data;
-  });
+    // =========================
+    // CARREGAMENTOS INICIAIS
+    // =========================
+    carregarHTML("pages/faq-credenciais.html", "areaFaq");
+    carregarHTML("pages/accordion-credenciais.html", "areaAccordion");
+    carregarHTML("pages/navbar.html", "navbar");
+    carregarHTML("pages/footer.html", "footer");
 
-  function abrirMenu() {
-    document.getElementById("menuLateral").style.width = "250px";
-  }
+    // =========================
+    // MENU LATERAL
+    // =========================
+    window.abrirMenu = function () {
+      document.getElementById("menuLateral").style.width = "250px";
+    }
 
-  function fecharMenu() {
-    document.getElementById("menuLateral").style.width = "0";
-  }
+    window.fecharMenu = function () {
+      document.getElementById("menuLateral").style.width = "0";
+    }
 
-  // carregar navbar
-  fetch("pages/navbar.html")
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById("navbar").innerHTML = data;
+    // =========================
+    // MODAL CREDENCIAL
+    // =========================
+    const modal = document.getElementById("modalCredencial");
+
+    modal.addEventListener("show.bs.modal", function (event) {
+
+      const button = event.relatedTarget;
+      const tipo = button.getAttribute("data-tipo");
+
+      fetch("pages/forms.html")
+        .then(res => res.text())
+        .then(data => {
+
+          document.getElementById("modalFormsContent").innerHTML = data;
+
+          const titulo = modal.querySelector(".modal-title");
+          const areaPre = document.getElementById("areaPreCadastro");
+          const areaOnline = document.getElementById("areaOnline");
+
+          if (tipo === "pre") {
+            titulo.textContent = "Pré-Cadastro";
+            areaPre.style.display = "block";
+            areaOnline.style.display = "none";
+          }
+
+          if (tipo === "online") {
+            titulo.textContent = "Credencial Online";
+            areaPre.style.display = "none";
+            areaOnline.style.display = "block";
+          }
+
+          configurarEnvio();
+        });
     });
 
-  // carregar footer
-  fetch("pages/footer.html")
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById("footer").innerHTML = data;
-    });
+    // =========================
+    // CONFIGURAR ENVIO
+    // =========================
+    function configurarEnvio() {
 
-  // carregar forms
-  fetch("pages/forms.html")
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById("areaForms").innerHTML = data;
-
+      const form = document.getElementById("formCredencial");
+      const mensagem = document.getElementById("mensagemSucesso");
       const temDependente = document.getElementById("temDependente");
       const areaDependentes = document.getElementById("areaDependentes");
-      const form = document.querySelector("#areaForms form");
-      const mensagemSucesso = document.getElementById("mensagemSucesso");
 
+      if (!form) return;
+
+      // Mostrar dependentes
       if (temDependente && areaDependentes) {
         temDependente.addEventListener("change", function () {
           areaDependentes.style.display = this.checked ? "block" : "none";
         });
       }
 
-      if (form) {
-        form.addEventListener("submit", function (e) {
-          e.preventDefault();
+      // Envio
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
 
-          mensagemSucesso.innerHTML = `
-          <div class="alert alert-success d-flex align-items-center fade show" role="alert">
-            <svg class="bi flex-shrink-0 me-2" width="24" height="24">
-              <use xlink:href="#check-circle-fill"/>
-            </svg>
-            <div>
-              <strong>Enviado com sucesso!</strong>
-              Sua solicitação foi recebida e será analisada.
-            </div>
-          </div>
-        `;
+        mensagem.innerHTML = `
+        <div class="alert alert-success">
+          <strong>Enviado com sucesso!</strong>
+          Sua solicitação foi recebida.
+        </div>
+      `;
 
-          form.reset();
+        form.reset();
 
-          setTimeout(() => {
-            mensagemSucesso.innerHTML = "";
-          }, 5000);
-        });
-      }
-    });
+        setTimeout(() => {
+          mensagem.innerHTML = "";
+        }, 5000);
+      });
+    }
 
-
-
-  // menu lateral
-  function abrirMenu() {
-    document.getElementById("menuLateral").style.width = "250px";
-  }
-
-  function fecharMenu() {
-    document.getElementById("menuLateral").style.width = "0";
-  }
+  });
 </script>
 </body>
 
