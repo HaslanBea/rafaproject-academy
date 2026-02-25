@@ -30,7 +30,8 @@
 <p style="margin: 25px;">O <strong>Cadastro online permite</strong> realizar o cadastro completo na plataforma. O
   <strong>pré-credenciamento</strong> é uma etapa anterior, onde você envia seus documentos e recebe um número de
   protocolo. Leve-o à unidade para validar os documentos e finalizar o cadastro rapidamente. Após o pré-credenciamento,
-  você receberá um número de protocolo para apresentar na unidade em até 7 dias.</p>
+  você receberá um número de protocolo para apresentar na unidade em até 7 dias.
+</p>
 
 <p style="margin: 20px;"></p>
 
@@ -205,18 +206,20 @@
         const protocolo = gerarProtocolo();
 
         mensagem.innerHTML = `
-        <div class="alert alert-success">
-          <strong>Enviado com sucesso!</strong><br>
-          Sua solicitação foi recebida.<br>
-          Número de protocolo: <strong>${protocolo}</strong>
-        </div>
-      `;
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Enviado com sucesso!</strong><br>
+            Sua solicitação foi recebida.<br>
+            Número de protocolo: <strong>${protocolo}</strong><br>
+            Este protocolo esta valido ate 15 dias corridos, faça um agendamento na sua unidade de preferência com este protocolo para atualização do cadastro.
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+          </div>
+        `;
 
         form.reset();
 
         setTimeout(() => {
           mensagem.innerHTML = "";
-        }, 5000);
+        }, 950000);
       });
     }
 
