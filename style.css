@@ -214,3 +214,18 @@ html {
     box-shadow: 0 6px 15px rgba(0,0,0,0.08);
     color: #ff5b1a;
 }
+
+.btn-ver-unidades {
+    display: inline-block;
+    background-color: #ff5b1a;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s ease;
+}
+
+.btn-ver-unidades:hover {
+    background-color: #e14d13;
+}
